@@ -33,7 +33,7 @@ const router = new Router({
 /**
  * Manages a cartId per user
  */
-router.use((ctx: Context, next: Next) => {
+router.use(async (ctx: Context, next: Next) => {
   let cartId = ctx.cookies.get('cart');
 
   if (!cartId) {
@@ -42,7 +42,7 @@ router.use((ctx: Context, next: Next) => {
   }
   ctx.state.cartId = cartId;
 
-  next();
+  await next();
 });
 
 router.get('/', getCart);

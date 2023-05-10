@@ -26,33 +26,24 @@ export default addToCart;
  *     - Cart
  *     summary: Adds an item to the cart
  *     operationId: addToCart
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               sku:
- *                 type: string
- *               quantity:
- *                 type: number
- *             required:
- *               - sku
- *               - quantity
- *           examples:
- *             'Google Home':
- *               value:
- *                 sku: 120P90
- *                 quantity: 2
- *             'MacBook Pro':
- *               value:
- *                 sku: 43N23P
- *                 quantity: 1
- *             'Alexa':
- *               value:
- *                 sku: A304SD
- *                 quantity: 3
+ *     parameters:
+ *       - name: body
+ *         in: body
+ *         schema:
+ *           $ref: '#/components/schemas/CartItem'
+ *         examples:
+ *           'Google Home':
+ *             value:
+ *               sku: 120P90
+ *               quantity: 2
+ *           'MacBook Pro':
+ *             value:
+ *               sku: 43N23P
+ *               quantity: 1
+ *           'Alexa':
+ *             value:
+ *               sku: A304SD
+ *               quantity: 3
  *     responses:
  *       '201':
  *         x-summary: Success
