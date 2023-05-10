@@ -4,7 +4,7 @@ import promotionsService from '../../service/promotions-service';
 import { validateModel } from '../validator';
 
 const addToCart = async (ctx: Context) => {
-  const update = (ctx.request as unknown as { body: { sku: string; quantity: number }}).body;
+  const update = (ctx.request as unknown as { body: { sku: string; quantity: number } }).body;
   validateModel('CartUpdate', update);
   const { sku, quantity } = update;
   const cart = await addToCartById(ctx.state.cartId, sku, quantity);

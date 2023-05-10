@@ -1,5 +1,5 @@
 // import Validator from 'swagger-model-validator';
-var Validator = require('swagger-model-validator');
+const Validator = require('swagger-model-validator');
 import spec from '../swagger/spec';
 import { ErrorResponse } from '../models/error';
 

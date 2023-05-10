@@ -17,12 +17,12 @@ class PromotionsService {
     this.promotions.push(promotion);
   }
 
-  applyToCart(cart: Cart) {
+  async applyToCart(cart: Cart) {
     console.info('------ Applying promotions to cart:', cart.items);
     cart.promotionsApplied = [];
 
     for (const promotion of this.promotions) {
-      promotion(cart);
+      await promotion(cart);
     }
 
     if (cart.promotionsApplied.length > 0) {
@@ -33,7 +33,7 @@ class PromotionsService {
 
 const promotionsService = new PromotionsService();
 
-promotionsService.registerPromotionType('freebie', (description: string, purchaseSku: string, freeSku: string, cart: Cart) => {
+promotionsService.registerPromotionType('freebie', async (description: string, purchaseSku: string, freeSku: string, cart: Cart) => {
   console.info(`---- Promotion: ${description}`);
   const items = cart.items;
   let applied = false;
@@ -68,8 +68,13 @@ promotionsService.registerPromotionType('freebie', (description: string, purchas
     const { name } = inventoryService.getProduct(freeSku);
 
     while (extraFreebies-- != 0) {
-      console.info(` adding a free ${name} (${freeSku})`);
-      items.push({ sku: freeSku, name, price: 0, discounted: true });
+      const available = await inventoryService.takeItem(freeSku, 1);
+      if (available) {
+        console.info(` adding a free ${name} (${freeSku})`);
+        items.push({ sku: freeSku, name, price: 0, discounted: true });
+      } else {
+        console.info(` free ${freeSku} is not in stock`);
+      }
     }
   }
 
@@ -81,13 +86,13 @@ promotionsService.registerPromotionType('freebie', (description: string, purchas
 /** eg: Buy 3 Google Homes for the price of 2 */
 promotionsService.registerPromotionType(
   'buy-x-for-y',
-  (description: string, purchaseSku: string, getX: number, forPriceOfY: number, cart: Cart) => {
+  async (description: string, purchaseSku: string, getX: number, forPriceOfY: number, cart: Cart) => {
     console.info(`---- Promotion: ${description}`);
     let count = 0;
     const items = cart.items;
     let applied = false;
     let discounts = 0;
-    let name: string = '';
+    let name = '';
 
     for (const item of items) {
       if (item.sku == purchaseSku) {
@@ -106,9 +111,14 @@ promotionsService.registerPromotionType(
     }
 
     while (discounts-- != 0) {
-      console.info(' adding a free', purchaseSku);
-      applied = true;
-      items.push({ sku: purchaseSku, name, price: 0, discounted: true });
+      const available = await inventoryService.takeItem(purchaseSku, 1);
+      if (available) {
+        console.info(' adding a free', purchaseSku);
+        items.push({ sku: purchaseSku, name, price: 0, discounted: true });
+        applied = true;
+      } else {
+        console.info(` free ${purchaseSku} is not in stock`);
+      }
     }
 
     if (applied) {
