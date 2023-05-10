@@ -9,6 +9,13 @@ import Cart, { CartItem } from '../models/cart';
 chai.use(chaiAsPromised);
 
 describe('PromotionsService', () => {
+  beforeEach(() => {
+    inventoryService.setProductQuantity(new Product('120P90', 'Google Home', 49.99), 10);
+    inventoryService.setProductQuantity(new Product('43N23P', 'MacBook Pro', 5399.99), 5);
+    inventoryService.setProductQuantity(new Product('A304SD', 'Alexa Speaker', 109.5), 10);
+    inventoryService.setProductQuantity(new Product('234234', 'Raspberry Pi B', 30.0), 2);
+  })
+
   it('should not charge for free Raspberry Pi B with a MacBook Pro purchase', async () => {
     // Given
     const cart = createCart([
@@ -168,18 +175,22 @@ describe('PromotionsService', () => {
     await promotionsService.applyToCart(cart);
 
     // Then
+    expect(cart.items.filter((item) => item.sku === '43N23P').length).to.equal(2);
+    expect(cart.items.filter((item) => item.sku === '234234').length).to.equal(2);
+    expect(cart.items.filter((item) => item.sku === '120P90').length).to.equal(3);
     expect(cart.items.length).to.equal(7);
-    expect(cart.promotionsApplied).to.deep.equal(['Free Raspberry Pi B with MacBook Pro purchase', '3 Google Homes for the price of 2']);
+    expect(cart.promotionsApplied).to.deep.equal([
+      'Free Raspberry Pi B with MacBook Pro purchase',
+      '3 Google Homes for the price of 2'
+    ]);
     expect(cart.calculateTotal()).to.equal(10899.96);
   });
 
-  it.only('should support give freebies that are in stock', async () => {
+  it('should support give freebies that are in stock', async () => {
     // Given
     inventoryService.setProductQuantity(new Product('120P90', 'Google Home', 49.99), 8 - 8);
     inventoryService.setProductQuantity(new Product('43N23P', 'MacBook Pro', 5399.99), 5 - 3);
-    inventoryService.setProductQuantity(new Product('A304SD', 'Alexa Speaker', 109.5), 10);
-    inventoryService.setProductQuantity(new Product('234234', 'Raspberry Pi B', 30.0), 2);
-
+    
     const cart = createCart([
       { sku: '43N23P', name: 'MacBook Pro', price: 5399.99 },
       { sku: '43N23P', name: 'MacBook Pro', price: 5399.99 },

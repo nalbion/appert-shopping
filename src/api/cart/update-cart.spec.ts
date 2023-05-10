@@ -24,6 +24,9 @@ describe('Route - PUT /api/cart', () => {
     expect(mockCtx).to.have.property('body');
 
     const cart = mockCtx.body as Cart;
+
+    console.info('cart:', cart);
+
     validateModel('Cart', cart as unknown as Record<string, unknown>);
     expect(cart.promotionsApplied[0]).to.equal('3 Google Homes for the price of 2');
   });

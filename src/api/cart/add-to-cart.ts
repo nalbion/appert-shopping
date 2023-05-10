@@ -9,7 +9,7 @@ const addToCart = async (ctx: Context) => {
   const { sku, quantity } = update;
   const cart = await addToCartById(ctx.state.cartId, sku, quantity);
 
-  promotionsService.applyToCart(cart);
+  await promotionsService.applyToCart(cart);
   cart.calculateTotal();
 
   ctx.body = cart;
