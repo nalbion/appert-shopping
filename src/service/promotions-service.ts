@@ -1,4 +1,5 @@
 import Cart from '../models/cart';
+import inventoryService from './inventory-service';
 
 type PromotionHandler = (...args: Array<never>) => void;
 
@@ -37,14 +38,12 @@ promotionsService.registerPromotionType('freebie', (description: string, purchas
   const items = cart.items;
   let applied = false;
   let extraFreebies = 0;
-  let name = '';
 
   for (const item of items) {
     if (item.sku === purchaseSku) {
       console.debug(`Purchase of ${item.sku} qualifies for free ${freeSku}`);
       let granted = false;
       applied = true;
-      name = item.name;
 
       for (const other of items) {
         if (other.sku === freeSku && other.price != 0) {
@@ -61,9 +60,13 @@ promotionsService.registerPromotionType('freebie', (description: string, purchas
     }
   }
 
-  while (extraFreebies-- != 0) {
-    console.info(' adding a free', freeSku);
-    items.push({ sku: freeSku, name, price: 0, discounted: true });
+  if (extraFreebies != 0) {
+    const { name } = inventoryService.getProduct(freeSku);
+
+    while (extraFreebies-- != 0) {
+      console.info(' adding a free', freeSku);
+      items.push({ sku: freeSku, name, price: 0, discounted: true });
+    }
   }
 
   if (applied) {

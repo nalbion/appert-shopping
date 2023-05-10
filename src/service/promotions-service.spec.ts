@@ -32,6 +32,7 @@ describe('PromotionsService', () => {
 
     // Then
     expect(cart.items[1].sku).to.equal('234234');
+    expect(cart.items[1].name).to.equal('Raspberry Pi B');
     expect(cart.items[1].price).to.equal(0);
     expect(cart.promotionsApplied).to.deep.equal(['Free Raspberry Pi B with MacBook Pro purchase']);
     expect(cart.calculateTotal()).to.equal(5399.99);
