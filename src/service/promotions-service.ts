@@ -46,7 +46,7 @@ promotionsService.registerPromotionType('freebie', (description: string, purchas
       applied = true;
 
       for (const other of items) {
-        if (other.sku === freeSku && other.price != 0) {
+        if (other.sku === freeSku) {
           console.debug(' this one is free');
           other.price = 0;
           other.discounted = true;
@@ -64,7 +64,7 @@ promotionsService.registerPromotionType('freebie', (description: string, purchas
     const { name } = inventoryService.getProduct(freeSku);
 
     while (extraFreebies-- != 0) {
-      console.info(' adding a free', freeSku);
+      console.info(` adding a free ${name} (${freeSku})`);
       items.push({ sku: freeSku, name, price: 0, discounted: true });
     }
   }

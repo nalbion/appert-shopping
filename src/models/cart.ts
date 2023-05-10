@@ -33,7 +33,7 @@ export default class Cart {
       return total + item.price;
     }, 0);
 
-    return this.total;
+    return Math.round(this.total * 100) / 100;
   }
 }
 

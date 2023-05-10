@@ -150,6 +150,27 @@ describe('PromotionsService', () => {
     expect(cart.promotionsApplied).to.deep.equal(['Alexa Speaker bulk discount']);
     expect(cart.calculateTotal()).to.equal(98.55 * 4);
   });
+
+  it.only('should support multiple promotions to cart with existing promotions', () => {
+    // Given
+    const cart = createCart([
+      { sku: '43N23P', name: 'MacBook Pro', price: 5399.99 },
+      { sku: '234234', name: 'Raspberry Pi B', price: 0, discounted: true },
+      { sku: '120P90', name: 'Google Home', price: 49.99 },
+      { sku: '120P90', name: 'Google Home', price: 49.99 },
+    ]);
+    cart.promotionsApplied = ['Free Raspberry Pi B with MacBook Pro purchase'];
+
+    // When
+    promotionsService.applyToCart(cart);
+
+    // Then
+    expect(cart.items.length).to.equal(5);
+    expect(cart.promotionsApplied).to.deep.equal([
+      'Free Raspberry Pi B with MacBook Pro purchase',
+      '3 Google Homes for the price of 2']);
+    expect(cart.calculateTotal()).to.equal(5499.97);
+  });
 });
 
 function createCart(items: Array<CartItem>) {
