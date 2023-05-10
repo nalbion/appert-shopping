@@ -10,10 +10,10 @@ describe('CartService', () => {
 
     const cart = getCartById('test');
     cart.items = [
-      { sku: '120P90', price: 49.99 },
-      { sku: '43N23P', price: 5399.99 },
-      { sku: '120P90', price: 49.99 },
-      { sku: '120P90', price: 0 },
+      { sku: '120P90', name: 'Google Home', price: 49.99 },
+      { sku: '43N23P', name: 'MacBook Pro', price: 5399.99 },
+      { sku: '120P90', name: 'Google Home', price: 49.99 },
+      { sku: '120P90', name: 'Google Home', price: 0 },
     ];
 
     // When
@@ -21,9 +21,9 @@ describe('CartService', () => {
 
     // Then
     expect(cart.items).to.deep.equal([
-      { sku: '43N23P', price: 5399.99 },
-      { sku: '120P90', price: 49.99 },
-      { sku: '120P90', price: 49.99 },
+      { sku: '43N23P', name: 'MacBook Pro', price: 5399.99 },
+      { sku: '120P90', name: 'Google Home', price: 49.99 },
+      { sku: '120P90', name: 'Google Home', price: 49.99 },
     ]);
     expect(inventoryService.getProductQuantityInStock('120P90')).to.equal(11);
   });
@@ -34,9 +34,9 @@ describe('CartService', () => {
 
     const cart = getCartById('test');
     cart.items = [
-      { sku: '120P90', price: 49.99 },
-      { sku: '43N23P', price: 5399.99 },
-      { sku: '120P90', price: 49.99 },
+      { sku: '120P90', name: 'Google Home', price: 49.99 },
+      { sku: '43N23P', name: 'MacBook Pro', price: 5399.99 },
+      { sku: '120P90', name: 'Google Home', price: 49.99 },
     ];
 
     // When
@@ -44,10 +44,10 @@ describe('CartService', () => {
 
     // Then
     expect(cart.items).to.deep.equal([
-      { sku: '120P90', price: 49.99 },
-      { sku: '43N23P', price: 5399.99 },
-      { sku: '120P90', price: 49.99 },
-      { sku: '120P90', price: 49.99 },
+      { sku: '120P90', name: 'Google Home', price: 49.99 },
+      { sku: '43N23P', name: 'MacBook Pro', price: 5399.99 },
+      { sku: '120P90', name: 'Google Home', price: 49.99 },
+      { sku: '120P90', name: 'Google Home', price: 49.99 },
     ]);
     expect(inventoryService.getProductQuantityInStock('120P90')).to.equal(9);
   });
@@ -58,16 +58,16 @@ describe('CartService', () => {
 
     const cart = getCartById('test');
     cart.items = [
-      { sku: '120P90', price: 49.99 },
-      { sku: '43N23P', price: 5399.99 },
-      { sku: '120P90', price: 49.99 },
+      { sku: '120P90', name: 'Google Home', price: 49.99 },
+      { sku: '43N23P', name: 'MacBook Pro', price: 5399.99 },
+      { sku: '120P90', name: 'Google Home', price: 49.99 },
     ];
 
     // When
     await updateCartById('test', '120P90', 0);
 
     // Then
-    expect(cart.items).to.deep.equal([{ sku: '43N23P', price: 5399.99 }]);
+    expect(cart.items).to.deep.equal([{ sku: '43N23P', name: 'MacBook Pro', price: 5399.99 }]);
     expect(inventoryService.getProductQuantityInStock('120P90')).to.equal(12);
   });
 });

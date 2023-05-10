@@ -25,8 +25,8 @@ export const addToCartById = async (cartId: string, sku: string, quantity: numbe
 
 const addToCart = async (cart: Cart, sku: string, quantity: number) => {
   if (await inventoryService.takeItem(sku, quantity)) {
-    const price = inventoryService.getProductPrice(sku);
-    cart.addToCart(sku, quantity, price);
+    const { name, price } = inventoryService.getProduct(sku);
+    cart.addToCart(sku, name, price, quantity);
   }
 };
 
@@ -64,7 +64,8 @@ const resetPrices = (cart: Cart) => {
     const sku = item.sku;
     let price = prices[sku];
     if (price === undefined) {
-      price = inventoryService.getProductPrice(sku);
+      const product = inventoryService.getProduct(sku);
+      price = product.price;
       prices[sku] = price;
     }
 

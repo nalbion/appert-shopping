@@ -9,14 +9,14 @@ class InventoryService {
     this.inventory[product.sku] = { product, inStock };
   }
 
-  getProductPrice(sku: string) {
-    const product = this.inventory[sku];
+  getProduct(sku: string) {
+    const record = this.inventory[sku];
 
-    if (!product) {
+    if (!record) {
       throw new ErrorResponse(404, 'Not Found');
     }
 
-    return product.product.price;
+    return record.product;
   }
 
   getProductQuantityInStock(sku: string) {

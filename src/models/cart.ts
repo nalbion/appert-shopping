@@ -1,5 +1,6 @@
 export type CartItem = {
   sku: string;
+  name: string;
   price: number;
   discounted?: boolean;
 };
@@ -15,10 +16,10 @@ export default class Cart {
     this.id = id;
   }
 
-  addToCart(sku: string, quantity: number, price: number) {
+  addToCart(sku: string, name: string, price: number, quantity: number) {
     console.info(`adding ${quantity} x ${sku} to cart ${this.id} at ${price}`);
     while (quantity-- != 0) {
-      this.items.push({ sku, price });
+      this.items.push({ sku, name, price });
     }
   }
 
@@ -57,6 +58,8 @@ export default class Cart {
  *     CartItem:
  *       properties:
  *         sku:
+ *           type: string
+ *         name:
  *           type: string
  *         price:
  *           type: number

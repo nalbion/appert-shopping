@@ -37,12 +37,14 @@ promotionsService.registerPromotionType('freebie', (description: string, purchas
   const items = cart.items;
   let applied = false;
   let extraFreebies = 0;
+  let name = '';
 
   for (const item of items) {
     if (item.sku === purchaseSku) {
       console.debug(`Purchase of ${item.sku} qualifies for free ${freeSku}`);
       let granted = false;
       applied = true;
+      name = item.name;
 
       for (const other of items) {
         if (other.sku === freeSku && other.price != 0) {
@@ -61,7 +63,7 @@ promotionsService.registerPromotionType('freebie', (description: string, purchas
 
   while (extraFreebies-- != 0) {
     console.info(' adding a free', freeSku);
-    items.push({ sku: freeSku, price: 0, discounted: true });
+    items.push({ sku: freeSku, name, price: 0, discounted: true });
   }
 
   if (applied) {
@@ -78,6 +80,7 @@ promotionsService.registerPromotionType(
     const items = cart.items;
     let applied = false;
     let discounts = 0;
+    let name: string = '';
 
     for (const item of items) {
       if (item.sku == purchaseSku) {
@@ -90,6 +93,7 @@ promotionsService.registerPromotionType(
         } else if (++count == forPriceOfY) {
           discounts = getX - forPriceOfY;
           count = 0;
+          name = item.name;
         }
       }
     }
@@ -97,7 +101,7 @@ promotionsService.registerPromotionType(
     while (discounts-- != 0) {
       console.info(' adding a free', purchaseSku);
       applied = true;
-      items.push({ sku: purchaseSku, price: 0, discounted: true });
+      items.push({ sku: purchaseSku, name, price: 0, discounted: true });
     }
 
     if (applied) {

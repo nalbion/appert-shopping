@@ -10,8 +10,8 @@ describe('PromotionsService', () => {
   it('should not charge for free Raspberry Pi B with a MacBook Pro purchase', async () => {
     // Given
     const cart = createCart([
-      { sku: '43N23P', price: 5399.99 },
-      { sku: '234234', price: 30.0 },
+      { sku: '43N23P', name: 'MacBook Pro', price: 5399.99 },
+      { sku: '234234', name: 'Raspberry Pi B', price: 30.0 },
     ]);
 
     // When
@@ -25,7 +25,7 @@ describe('PromotionsService', () => {
 
   it('should add a free Raspberry Pi B with a MacBook Pro purchase', async () => {
     // Given
-    const cart = createCart([{ sku: '43N23P', price: 5399.99 }]);
+    const cart = createCart([{ sku: '43N23P', name: 'MacBook Pro', price: 5399.99 }]);
 
     // When
     promotionsService.applyToCart(cart);
@@ -40,9 +40,9 @@ describe('PromotionsService', () => {
   it('should add a free Raspberry Pi B with 2 MacBook Pro purchases', async () => {
     // Given
     const cart = createCart([
-      { sku: '234234', price: 30.0 },
-      { sku: '43N23P', price: 5399.99 },
-      { sku: '43N23P', price: 5399.99 },
+      { sku: '234234', name: 'Raspberry Pi B', price: 30.0 },
+      { sku: '43N23P', name: 'MacBook Pro', price: 5399.99 },
+      { sku: '43N23P', name: 'MacBook Pro', price: 5399.99 },
     ]);
 
     // When
@@ -59,9 +59,9 @@ describe('PromotionsService', () => {
   it('should not charge for 3rd Google Home', () => {
     // Given
     const cart = createCart([
-      { sku: '120P90', price: 49.99 },
-      { sku: '120P90', price: 49.99 },
-      { sku: '120P90', price: 49.99 },
+      { sku: '120P90', name: 'Google Home', price: 49.99 },
+      { sku: '120P90', name: 'Google Home', price: 49.99 },
+      { sku: '120P90', name: 'Google Home', price: 49.99 },
     ]);
 
     // When
@@ -76,9 +76,9 @@ describe('PromotionsService', () => {
   it('should add 3rd Google Home when 2 are purchased', () => {
     // Given
     const cart = createCart([
-      { sku: '120P90', price: 49.99 },
-      { sku: '120P90', price: 49.99 },
-      { sku: '120P90', price: 49.99 },
+      { sku: '120P90', name: 'Google Home', price: 49.99 },
+      { sku: '120P90', name: 'Google Home', price: 49.99 },
+      { sku: '120P90', name: 'Google Home', price: 49.99 },
     ]);
 
     // When
@@ -93,11 +93,11 @@ describe('PromotionsService', () => {
   it('should add 6th Google Home when 5 are purchased', () => {
     // Given
     const cart = createCart([
-      { sku: '120P90', price: 49.99 },
-      { sku: '120P90', price: 49.99 },
-      { sku: '120P90', price: 49.99 },
-      { sku: '120P90', price: 49.99 },
-      { sku: '120P90', price: 49.99 },
+      { sku: '120P90', name: 'Google Home', price: 49.99 },
+      { sku: '120P90', name: 'Google Home', price: 49.99 },
+      { sku: '120P90', name: 'Google Home', price: 49.99 },
+      { sku: '120P90', name: 'Google Home', price: 49.99 },
+      { sku: '120P90', name: 'Google Home', price: 49.99 },
     ]);
 
     // When
@@ -112,9 +112,9 @@ describe('PromotionsService', () => {
   it('should not apply a discount for 3 Alexa speakers', () => {
     // Given
     const cart = createCart([
-      { sku: 'A304SD', price: 109.5 },
-      { sku: 'A304SD', price: 109.5 },
-      { sku: 'A304SD', price: 109.5 },
+      { sku: 'A304SD', name: 'Alexa Speaker', price: 109.5 },
+      { sku: 'A304SD', name: 'Alexa Speaker', price: 109.5 },
+      { sku: 'A304SD', name: 'Alexa Speaker', price: 109.5 },
     ]);
 
     // When
@@ -132,10 +132,10 @@ describe('PromotionsService', () => {
   it('should apply a discount for more than 3 Alexa speakers', () => {
     // Given
     const cart = createCart([
-      { sku: 'A304SD', price: 109.5 },
-      { sku: 'A304SD', price: 109.5 },
-      { sku: 'A304SD', price: 109.5 },
-      { sku: 'A304SD', price: 109.5 },
+      { sku: 'A304SD', name: 'Alexa Speaker', price: 109.5 },
+      { sku: 'A304SD', name: 'Alexa Speaker', price: 109.5 },
+      { sku: 'A304SD', name: 'Alexa Speaker', price: 109.5 },
+      { sku: 'A304SD', name: 'Alexa Speaker', price: 109.5 },
     ]);
 
     // When
