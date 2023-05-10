@@ -1,0 +1,12 @@
+.idea/
+.env
+.DS_Store
+.scannerwork
+build/
+coverage/
+node_modules/
+dist/
+.eslintcache
+.nyc_output
+
+test-report.xml
