@@ -3,3 +3,21 @@ GET http://localhost:9020/api/health
 
 ### Get Cart
 GET http://localhost:9020/api/cart
+
+### Add to Cart
+POST http://localhost:9020/api/cart
+Content-Type: application/json
+
+{
+  "sku": "120P90",
+  "quantity": 1
+}
+
+### Update Cart
+PUT http://localhost:9020/api/cart
+Content-Type: application/json
+
+{
+"sku": "120P90",
+"quantity": 1
+}

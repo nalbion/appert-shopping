@@ -1,0 +1,161 @@
+openapi: 3.0.0
+info:
+  title: Appert Shopping API
+  description: Shopping Cart for Appert
+  version: 0.0.1
+  termsOfService: ''
+servers:
+  - description: Development
+    url: http://localhost:9020
+paths:
+  /api/cart:
+    post:
+      tags:
+        - Cart
+      summary: Adds an item to the cart
+      operationId: addToCart
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                sku:
+                  type: string
+                quantity:
+                  type: number
+              required:
+                - sku
+                - quantity
+            examples:
+              Google Home:
+                value:
+                  sku: 120P90
+                  quantity: 2
+              MacBook Pro:
+                value:
+                  sku: 43N23P
+                  quantity: 1
+              Alexa:
+                value:
+                  sku: A304SD
+                  quantity: 3
+      responses:
+        '201':
+          x-summary: Success
+          description: Item added to cart
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cart'
+        '500':
+          x-summary: Failure
+          description: Internal error
+    get:
+      tags:
+        - Cart
+      summary: Retrieves the contents of the cart
+      operationId: getCart
+      responses:
+        '200':
+          x-summary: Success
+          description: The contents of the cart
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cart'
+        '500':
+          x-summary: Failure
+          description: Internal error
+    put:
+      tags:
+        - Cart
+      summary: Updates the quantity for an item in the cart
+      operationId: updateCart
+      parameters:
+        - name: body
+          in: body
+          schema:
+            $ref: '#/components/schemas/CartItem'
+          examples:
+            Google Home:
+              value:
+                sku: 120P90
+                quantity: 2
+            MacBook Pro:
+              value:
+                sku: 43N23P
+                quantity: 1
+            Alexa:
+              value:
+                sku: A304SD
+                quantity: 3
+      responses:
+        '200':
+          x-summary: Success
+          description: Item added to cart
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cart'
+        '500':
+          x-summary: Failure
+          description: Internal error
+  /api/health:
+    get:
+      tags:
+        - Health
+      summary: Health Check API
+      operationId: healthCheck
+      responses:
+        '200':
+          x-summary: Success
+          description: Health check is OK
+        '500':
+          x-summary: Failure
+          description: Health check is down
+components:
+  schemas:
+    Cart:
+      properties:
+        id:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/CartItem'
+        promotionsApplied:
+          type: array
+          items:
+            type: string
+        total:
+          type: number
+    CartItem:
+      properties:
+        sku:
+          type: string
+        price:
+          type: number
+        discounted:
+          type: boolean
+    ErrorResponse:
+      properties:
+        statusCode:
+          type: number
+        error:
+          type: string
+    CartUpdate:
+      properties:
+        sku:
+          type: string
+        quantity:
+          type: number
+      required:
+        - sku
+        - quantity
+tags:
+  - name: Cart
+    description: Shopping Cart
+  - name: Health
+    description: Health Check

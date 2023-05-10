@@ -22,10 +22,10 @@
   ],
   "scripts": {
     "start": "node dist/app.js",
-    "start:dev": "ts-node src/app.ts",
+    "start:dev": "ts-node-dev src/app.ts",
     "build": "tsc",
     "docker:build": "docker build -t nalbion/appert-shopping .",
-    "docker:run": "docker run --rm -p 9020 nalbion/appert-shopping",
+    "docker:run": "docker run --rm -p 9020:9020 nalbion/appert-shopping",
     "docker:shell": "docker run --rm -it --entrypoint /bin/bash nalbion/appert-shopping",
     "clean": "rm -rf dist src/generated",
     "coverage": "nyc npm run test",
@@ -40,8 +40,7 @@
     "test:tdd": "mocha -r ts-node/register --watch --watch-files \"./src/**/*.ts\" --recursive \"./src/**/*.spec.ts\" ",
     "test:ci": "mocha -r ts-node/register --require mocha-suppress-logs -R mocha-reporter-sonarqube -O filename=test-report.xml --recursive \"./src/**/*.spec.ts\" --exit",
     "generate-clients": "ci/scripts/generate-code",
-    "generate-schema": "ts-node src/swagger/generate.ts",
-    "generate-md": "ts-node src/swagger/generate-md.ts"
+    "generate-schema": "ts-node src/swagger/generate.ts"
   },
   "engines": {
     "node": ">= 14.0.0",
@@ -49,21 +48,32 @@
   },
   "dependencies": {
     "@apidevtools/swagger-parser": "^10.1.0",
+    "@koa/cors": "^4.0.0",
     "@koa/router": "^12.0.0",
     "js-yaml": "^4.1.0",
     "koa": "^2.14.2",
+    "koa-bodyparser": "^4.4.0",
     "koa2-swagger-ui": "^5.7.0",
     "source-map-support": "^0.5.21",
-    "swagger-jsdoc": "^6.2.8"
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-model-validator": "^3.0.21",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@istanbuljs/nyc-config-typescript": "^1.0.2",
+    "@types/chai-as-promised": "^7.1.5",
+    "@types/js-yaml": "^4.0.5",
     "@types/koa": "^2.13.6",
+    "@types/koa__cors": "^4.0.0",
     "@types/koa__router": "^12.0.0",
+    "@types/koa-bodyparser": "^4.3.10",
     "@types/mocha": "^10.0.1",
     "@types/node": "^20.1.1",
+    "@types/swagger-jsdoc": "^6.0.1",
+    "@types/uuid": "^9.0.1",
     "@typescript-eslint/eslint-plugin": "^5.59.5",
     "chai": "^4.3.7",
+    "chai-as-promised": "^7.1.1",
     "chai-http": "^4.3.0",
     "eslint": "^8.40.0",
     "eslint-plugin-import": "^2.27.5",
@@ -74,6 +84,7 @@
     "pre-commit": "^1.2.2",
     "prettier": "^2.8.8",
     "ts-node": "^10.9.1",
+    "ts-node-dev": "^2.0.0",
     "typescript": "^5.0.4"
   }
 }

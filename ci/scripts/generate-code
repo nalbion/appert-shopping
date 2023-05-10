@@ -1,0 +1,14 @@
+function openapi_generator_cli() {
+  if [[ -z "${CI}" ]]; then
+    docker run --rm -v "${PWD}:/local" openapitools/openapi-generator-cli:v5.2.0 "$@"
+  else
+    java -jar /opt/openapi-generator/modules/openapi-generator-cli/target/openapi-generator-cli.jar "$@"
+  fi
+}
+
+openapi_generator_cli generate \
+    -i /local/generator-specs/appert-shopping-api.yaml \
+    -g typescript-axios \
+    -o /local/src/client \
+    --additional-properties="withInterfaces=true" \
+    --additional-properties="supportsES6=true"

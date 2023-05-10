@@ -4,7 +4,7 @@ import server from '../../app';
 
 const app = chai.use(chaiHttp);
 
-describe('/api/health', () => {
+describe('/api/cart', () => {
   before(() => {
     app.request(server).keepOpen();
   });
@@ -13,15 +13,14 @@ describe('/api/health', () => {
     server.close();
   });
 
-  describe('GET /api/health', () => {
+  describe('GET /api/cart', () => {
     it('should return "OK" on success', (done) => {
       app
         .request(server)
-        .get('/api/health')
+        .get('/api/cart')
         .end((err, res) => {
           expect(err).to.equal(null);
           expect(res).to.have.status(200);
-          expect(res.body).to.deep.equal({ build: 'local', version: '0.0.1' });
           done();
         });
     });

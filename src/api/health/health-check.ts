@@ -10,6 +10,7 @@ const healthCheck = (ctx: Context) => {
 
   ctx.body = {
     version,
+    build: process.env.BUILD_VERSION || 'local',
     // TODO: disk space, DB connectivity, other dependencies...
   };
 };
@@ -18,7 +19,7 @@ export default healthCheck;
 
 /**
  * @swagger
- * /health:
+ * /api/health:
  *   get:
  *     tags:
  *     - Health

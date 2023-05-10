@@ -1,15 +1,21 @@
 import { Server } from 'http';
 import Koa from 'koa';
-// import bodyParser from 'koa-bodyparser';
+import bodyParser from 'koa-bodyparser';
 // import helmet from 'koa-helmet';
+import cors from '@koa/cors';
 import apiRouter from './api';
-// import swaggerUi from './swagger/ui';
+import swaggerUi from './swagger/ui';
 
 const app = new Koa();
 
-// app.use(bodyParser());
-// app.use(swaggerUi);
+app.use(bodyParser());
+app.use(swaggerUi);
 // app.use(helmet());
+app.use(
+  cors({
+    // origin: 'http://localhost:9020'
+  })
+);
 
 app.use(apiRouter.routes());
 
