@@ -158,6 +158,7 @@ describe('PromotionsService', () => {
       { sku: '234234', name: 'Raspberry Pi B', price: 0, discounted: true },
       { sku: '120P90', name: 'Google Home', price: 49.99 },
       { sku: '120P90', name: 'Google Home', price: 49.99 },
+      { sku: '43N23P', name: 'MacBook Pro', price: 5399.99 },
     ]);
     cart.promotionsApplied = ['Free Raspberry Pi B with MacBook Pro purchase'];
 
@@ -165,11 +166,11 @@ describe('PromotionsService', () => {
     promotionsService.applyToCart(cart);
 
     // Then
-    expect(cart.items.length).to.equal(5);
+    expect(cart.items.length).to.equal(7);
     expect(cart.promotionsApplied).to.deep.equal([
       'Free Raspberry Pi B with MacBook Pro purchase',
       '3 Google Homes for the price of 2']);
-    expect(cart.calculateTotal()).to.equal(5499.97);
+    expect(cart.calculateTotal()).to.equal(10899.96);
   });
 });
 

@@ -34,10 +34,11 @@ class PromotionsService {
 const promotionsService = new PromotionsService();
 
 promotionsService.registerPromotionType('freebie', (description: string, purchaseSku: string, freeSku: string, cart: Cart) => {
-  // console.info(`---- Promotion: ${description}`);
+  console.info(`---- Promotion: ${description}`);
   const items = cart.items;
   let applied = false;
   let extraFreebies = 0;
+  let freeIndex = 0;
 
   for (const item of items) {
     if (item.sku === purchaseSku) {
@@ -45,12 +46,15 @@ promotionsService.registerPromotionType('freebie', (description: string, purchas
       let granted = false;
       applied = true;
 
-      for (const other of items) {
+      while (freeIndex < items.length) {
+        const other = items[freeIndex++];
+
         if (other.sku === freeSku) {
           console.debug(' this one is free');
           other.price = 0;
           other.discounted = true;
           granted = true;
+          break;
         }
       }
 
@@ -78,7 +82,7 @@ promotionsService.registerPromotionType('freebie', (description: string, purchas
 promotionsService.registerPromotionType(
   'buy-x-for-y',
   (description: string, purchaseSku: string, getX: number, forPriceOfY: number, cart: Cart) => {
-    // console.info(`---- Promotion: ${description}`);
+    console.info(`---- Promotion: ${description}`);
     let count = 0;
     const items = cart.items;
     let applied = false;
@@ -116,7 +120,7 @@ promotionsService.registerPromotionType(
 promotionsService.registerPromotionType(
   'buy-x-discounted',
   (description: string, purchaseSku: string, buyX: number, discountRate: number, cart: Cart) => {
-    // console.info(`---- Promotion: ${description}`);
+    console.info(`---- Promotion: ${description}`);
     const eligibleItems = cart.items.filter((item) => item.sku === purchaseSku);
 
     if (eligibleItems.length >= buyX) {
