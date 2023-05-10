@@ -16,6 +16,10 @@ const definition: SwaggerDefinition = {
   info,
   servers: [
     {
+      description: 'Heroku',
+      url: 'https://appert-shopping.herokuapp.com',
+    },
+    {
       description: 'Development',
       url: 'http://localhost:9020',
     },

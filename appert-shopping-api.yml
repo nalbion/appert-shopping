@@ -5,6 +5,8 @@ info:
   version: 0.0.1
   termsOfService: ''
 servers:
+  - description: Heroku
+    url: https://appert-shopping.herokuapp.com
   - description: Development
     url: http://localhost:9020
 paths:
@@ -134,6 +136,8 @@ components:
     CartItem:
       properties:
         sku:
+          type: string
+        name:
           type: string
         price:
           type: number

@@ -10,6 +10,8 @@
 
 ## Usage
 
+This application has been deployed to [https://appert-shopping.herokuapp.com/swagger](https://appert-shopping.herokuapp.com/swagger)
+
 ```bash
 docker build -t nalbion/appert-shopping .
 docker run --rm -p 9020:9020 nalbion/appert-shopping
