@@ -1,5 +1,9 @@
 # appert-shopping
 
+- Each user is automatically assigned a `cartId` cookie which is used in subsequent requests.
+- The shopping cart API supports promotions which can be externally configured.
+ Various instances of `freebie` etc can be configured, and new promotion types can be added without modifications to the `PromotionsService` code.
+
 ## TODO
 - authorisation - users should be able to (optionally) log in and access the cart they were using anonymously or from a different device.
 - checkout & payment
