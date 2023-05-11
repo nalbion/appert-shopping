@@ -1,4 +1,5 @@
 # appert-shopping
++ [![cov](https://nalbion.github.io/appert-shopping/badges/coverage.svg)](https://github.com/nalbion/appert-shopping/actions)
 
 - Each user is automatically assigned a `cartId` cookie which is used in subsequent requests.
 - The shopping cart API supports promotions which can be externally configured.
