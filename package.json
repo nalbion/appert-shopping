@@ -38,7 +38,7 @@
     "format:lint:fix": "npm run format:fix && npm run lint:fix",
     "test": "mocha -r ts-node/register --recursive \"./src/**/*.spec.ts\" --exit",
     "test:tdd": "mocha -r ts-node/register --watch --watch-files \"./src/**/*.ts\" --recursive \"./src/**/*.spec.ts\" ",
-    "test:ci": "mocha -r ts-node/register --require mocha-suppress-logs -r text -r json-summary --recursive \"./src/**/*.spec.ts\" --exit",
+    "test:ci": "mocha -r ts-node/register --require mocha-suppress-logs -R mocha-lcov-reporter --recursive \"./src/**/*.spec.ts\" --exit",
     "generate-clients": "ci/scripts/generate-code",
     "generate-schema": "ts-node src/swagger/generate.ts"
   },
@@ -78,6 +78,7 @@
     "eslint": "^8.40.0",
     "eslint-plugin-import": "^2.27.5",
     "mocha": "^10.2.0",
+    "mocha-lcov-reporter": "^1.3.0",
     "mocha-reporter-sonarqube": "^2.0.0",
     "mocha-suppress-logs": "^0.3.1",
     "nyc": "^15.1.0",
