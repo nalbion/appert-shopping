@@ -25,7 +25,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm ci
+    - run: npm install fsevents
     - run: npm run build --if-present
     - run: npm run coverage:ci
     - name: Update Coverage Badge
