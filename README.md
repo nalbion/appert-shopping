@@ -1,6 +1,7 @@
 # appert-shopping
 [![Coverage Status](https://img.shields.io/coveralls/github/nalbion/appert-shopping/master.svg)](https://coveralls.io/r/nalbion/appert-shopping?branch=master)
 
+- Test the API at [https://appert-shopping.herokuapp.com/swagger](https://appert-shopping.herokuapp.com/swagger)
 - Each user is automatically assigned a `cartId` cookie which is used in subsequent requests.
 - The shopping cart API supports promotions which can be externally configured.
  Various instances of `freebie` etc can be configured, and new promotion types can be added without modifications to the `PromotionsService` code.
@@ -14,8 +15,6 @@
 - Monitor [http://localhost:9020/api/health](http://localhost:9020/api/health) & update to ping DB. If the optional query string `?version=0.0.1` does not match the build version a HTTP status `409` is returned.
 
 ## Usage
-
-This application has been deployed to [https://appert-shopping.herokuapp.com/swagger](https://appert-shopping.herokuapp.com/swagger)
 
 ```bash
 docker build -t nalbion/appert-shopping .
